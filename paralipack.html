@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ParaliPack | From Punjab’s fields to better packaging</title>
+  <meta name="description" content="A student project exploring an alternative to stubble burning in Punjab: turning surplus paddy straw into useful packaging and a potential source of income.">
+  <style>
+    :root { --paper:#f6f3e9; --ink:#233a2c; --green:#254d37; --muted:#626a5d; --gold:#e9b949; --line:#d9ddcf; --rust:#a34c32; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:90px; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 Arial,Helvetica,sans-serif; }
+    button,input { font:inherit; } a { color:inherit; } button { cursor:pointer; }
+    a,button,input,summary { outline-offset:5px; } :focus-visible { outline:3px solid #b46a0b; }
+    .wrap { max-width:1180px; margin:auto; padding:0 28px; }
+    .skip { position:absolute; top:-90px; padding:12px; background:white; z-index:20; }.skip:focus { top:8px; }
+    header { position:sticky; top:0; background:#f6f3e9f5; border-bottom:1px solid var(--line); z-index:10; }
+    nav { min-height:80px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { font-size:25px; font-weight:800; text-decoration:none; letter-spacing:-1px; }.brand span { color:#8b6518; }
+    .navlinks { display:flex; gap:25px; align-items:center; }.navlinks a { font-size:13px; font-weight:700; text-decoration:none; }
+    .navlinks a:hover { text-decoration:underline; }.navlinks .navbutton { border:1px solid var(--green); padding:9px 15px; border-radius:5px; }
+    .eyebrow { font-size:11px; font-weight:800; letter-spacing:1.9px; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; } h1,h2 { font-family:Georgia,'Times New Roman',serif; font-weight:400; }
+    h1 { font-size:clamp(48px,5.7vw,76px); line-height:1.04; letter-spacing:-2.8px; margin:23px 0; } h1 em { color:#8d671f; font-weight:400; }
+    h2 { font-size:clamp(33px,4vw,48px); line-height:1.12; letter-spacing:-1px; margin:12px 0 20px; } h3 { font-size:21px; line-height:1.3; margin-bottom:12px; }
+    .hero { display:grid; grid-template-columns:1.05fr 1fr; gap:50px; align-items:center; padding:62px 0 50px; }
+    .hero p { color:var(--muted); max-width:510px; }.actions { display:flex; flex-wrap:wrap; gap:13px; margin-top:27px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:14px; padding:13px 20px; border:1px solid var(--green); border-radius:5px; background:var(--green); color:white; text-decoration:none; font-size:14px; font-weight:700; }
+    .btn.secondary { background:transparent; color:var(--green); }.btn:hover { filter:brightness(.9); }
+    .hero-art { background:#e6e9d8; border-radius:120px 120px 12px 12px; overflow:hidden; position:relative; }
+    .hero-art svg { display:block; width:100%; height:auto; }.art-caption { display:flex; justify-content:space-between; gap:10px; padding:17px 23px; background:#dce2cd; font-size:11px; font-weight:700; letter-spacing:.8px; }
+    .strap { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:21px 0; gap:20px; font-size:14px; }.strap span { color:#8d671f; margin-right:10px; }
+    section { padding:72px 0; }.sectionhead { display:grid; grid-template-columns:1.2fr 1fr; align-items:end; gap:60px; margin-bottom:30px; }.sectionhead h2 { margin-bottom:0; }.sectionhead p { color:var(--muted); margin:0; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }.card { background:#fffdf7; border:1px solid var(--line); border-radius:9px; padding:28px; }.card p { color:var(--muted); font-size:14px; margin-bottom:0; }.number { display:block; font:italic 30px Georgia,serif; color:#a97f32; margin-bottom:28px; }
+    .problem { padding-bottom:0; }.problem .card { border-top:3px solid #a86b50; }.note { padding:20px 24px; border-left:3px solid var(--gold); background:#ecebdc; font-size:14px; margin-top:22px; }.note p { margin:0; }.reference { font-size:12px; color:#69715f; margin-top:18px; }.reference a { text-underline-offset:3px; }
+    .solution { background:var(--green); color:var(--paper); margin-top:68px; }.solution .sectionhead p { color:#d0daca; }.solution .eyebrow { color:var(--gold); }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:25px; }.step { border-top:1px solid #65816b; padding-top:21px; }.step span { color:var(--gold); font-size:13px; }.step h3 { margin-top:14px; }.step p { color:#d0daca; font-size:14px; }.solution .note { background:#365c44; border-left-color:var(--gold); }.solution .reference { color:#d0daca; }
+    .product-visual { height:165px; border-radius:5px; background:#eae5d3; display:grid; place-items:center; margin-bottom:25px; }.product-visual svg { width:185px; height:140px; }.tag { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#74632c; }.card h3 { margin-top:9px; }.products .card { padding:18px 18px 25px; }.products .card p,.products .card h3,.products .card .tag { margin-left:8px; margin-right:8px; }
+    .business { padding-top:0; }.roles { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line); border-radius:8px; overflow:hidden; }.role { padding:28px; background:#ebeede; }.role+ .role { border-left:1px solid #cbd2be; }.role p { font-size:14px; margin:0; color:var(--muted); }
+    .calculator { background:#e8ecdf; }.calcgrid { display:grid; grid-template-columns:1.1fr .9fr; gap:35px; align-items:start; }.inputs { display:grid; grid-template-columns:1fr 1fr; gap:17px; } label { font-size:12px; font-weight:700; display:block; } input { display:block; width:100%; margin-top:7px; padding:10px 12px; background:#fffdf8; color:var(--ink); border:1px solid #adb9a5; border-radius:5px; } input:invalid { border-color:#a34c32; }.field-note { font-size:12px; color:var(--muted); margin:16px 0 0; }
+    .result { padding:30px; background:var(--green); border-radius:8px; color:white; position:sticky; top:100px; }.result .eyebrow { color:#e0c57f; }.profit { font-size:49px; line-height:1.2; letter-spacing:-2px; margin:12px 0; font-weight:700; }.result dl { margin:25px 0 20px; }.result dl div { display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-bottom:1px solid #ffffff30; font-size:13px; }.result dd { margin:0; font-weight:700; text-align:right; }.result p { font-size:13px; color:#e0e8d8; margin-bottom:0; }.result.loss { background:#773e2d; }
+    .smallbutton { border:0; border-bottom:1px solid currentColor; background:none; color:var(--ink); padding:0 0 3px; font-size:13px; margin-top:20px; }.error { color:#922c1d; font-weight:700; font-size:13px; }
+    details { border-bottom:1px solid var(--line); padding:19px 0; } summary { cursor:pointer; font-size:16px; font-weight:700; } details p { font-size:14px; color:var(--muted); margin:15px 0 0; max-width:850px; }
+    .pilot { display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; }.checklist { display:grid; gap:12px; }.check { display:flex; align-items:start; gap:12px; font-size:14px; padding:14px 17px; background:#eeeee2; border-radius:5px; font-weight:400; }.check input { width:19px; height:19px; margin:3px 0 0; accent-color:var(--green); flex-shrink:0; }.check strong { display:block; }.progress { font-size:13px; color:var(--muted); margin-top:22px; }
+    .guidance { padding:33px 0; border-top:1px solid var(--line); }.guidance-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:25px; margin-top:20px; }.guidance p { margin:3px 0 0; font-size:13px; color:var(--muted); }
+    footer { background:var(--ink); color:#e3e8da; padding:27px 0; }.foot { display:flex; justify-content:space-between; gap:25px; align-items:center; }.foot p { font-size:12px; margin:0; max-width:450px; }.foot .brand span { color:var(--gold); } noscript { display:block; padding:20px; background:#f8dfa5; }
+    @media(max-width:900px) { .hero { gap:25px; }.navlinks { gap:15px; }.sectionhead { gap:25px; }.steps { grid-template-columns:1fr 1fr; }.cards { gap:12px; }.card { padding:20px; }.calcgrid { gap:22px; }.pilot { gap:35px; } }
+    @media(max-width:650px) { .wrap { padding:0 20px; } nav { min-height:72px; flex-wrap:wrap; gap:8px; padding:13px 0; }.brand { font-size:23px; }.navlinks { gap:14px; }.navlinks a { font-size:11px; }.navlinks .navbutton { padding:5px 8px; }.hero { grid-template-columns:1fr; padding:38px 0 30px; gap:28px; } h1 { font-size:53px; }.hero-art { max-width:480px; width:100%; margin:auto; }.strap { grid-template-columns:1fr; gap:8px; padding:17px 0; }.sectionhead,.cards,.calcgrid,.roles,.pilot,.guidance-grid { grid-template-columns:1fr; }.sectionhead { gap:16px; } section { padding:48px 0; }.solution { margin-top:45px; }.steps { gap:23px; }.step h3 { font-size:18px; }.role+ .role { border-left:0; border-top:1px solid #cbd2be; }.result { position:static; }.profit { font-size:44px; }.inputs { gap:12px; }.foot { flex-direction:column; align-items:start; }.guidance-grid { gap:17px; }.number { margin-bottom:15px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap"><nav aria-label="Main navigation"><a class="brand" href="#main">Parali<span>Pack</span></a><div class="navlinks"><a href="#problem">The problem</a><a href="#solution">Our idea</a><a href="#calculator" class="navbutton">Explore the numbers ↗</a></div></nav></div></header>
+<main id="main">
+<div class="wrap">
+  <div class="hero">
+    <div><div class="eyebrow">A student project · Punjab, India</div><h1>What if stubble<br>became a box,<br><em>not smoke?</em></h1><p>After the paddy harvest, the straw left in Punjab’s fields can be more than a disposal problem. Our idea: collect surplus straw, turn its fibres into packaging, and give farmers a reason to sell it instead of burning it.</p><div class="actions"><a class="btn" href="#solution">See how it could work <span aria-hidden="true">↗</span></a><a class="btn secondary" href="#calculator">Could it make money?</a></div></div>
+    <div class="hero-art">
+      <svg viewBox="0 0 520 435" role="img" aria-label="Illustration of harvested straw beside a packaging box. Proposed product concept, not a manufactured sample.">
+        <defs><pattern id="grain" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M3 4l5 2m7 8l4-2M5 19l3-1" stroke="#9d7136" stroke-width=".7" opacity=".25"/></pattern></defs>
+        <circle cx="390" cy="95" r="56" fill="#edcd78"/><path d="M0 270Q160 220 310 280T520 270V435H0Z" fill="#cbd3b8"/><path d="M0 338Q260 265 520 335V435H0Z" fill="#b6c4a3"/>
+        <ellipse cx="287" cy="377" rx="168" ry="23" fill="#849873" opacity=".25"/>
+        <g stroke="#b18b43" stroke-width="3" fill="none"><path d="M77 365l18-160M90 363l26-172M100 365l47-145M111 365l53-133M121 365l19-189M130 365l52-164M143 365l48-141M156 365l51-151"/><path d="M77 229l20 13 16-22M108 219l15 9 18-16M139 205l4 24 20-11M166 220l8 15 20-10M87 266l19 10 16-18M139 262l20 8 19-18"/></g>
+        <path d="M78 323l82 7-7 19-78-6Z" fill="#667c53"/>
+        <path d="M220 226l137-50 105 72-136 53Z" fill="#d6b275"/><path d="M220 226v113l106 68V301Z" fill="#b8864e"/><path d="M326 301v106l136-65v-94Z" fill="#c59b61"/><path d="M220 226l137-50 105 72v94l-136 65-106-68Z" fill="url(#grain)"/>
+        <path d="M220 226l-28-49 128-42 37 41Z" fill="#e5c997"/><path d="M357 176l22-35 106 66-23 41Z" fill="#d6b075"/><path d="M326 301l-27-53-107-71 28 49Z" fill="#e6c591"/>
+        <path d="M375 313v35m-17-17l17-18 17 3" stroke="#38553b" stroke-width="3" fill="none"/><text x="345" y="375" font-family="Arial,sans-serif" font-size="16" fill="#35492f" transform="rotate(-25 345 375)">PARALIPACK</text>
+        <path d="M197 134q70-59 151-30" stroke="#476044" stroke-width="2" stroke-dasharray="5 6" fill="none"/><path d="M335 92l15 13-19 4" stroke="#476044" stroke-width="2" fill="none"/>
+        <text x="42" y="74" font-family="Arial,sans-serif" font-size="12" letter-spacing="2" fill="#476044">GROWN IN A FIELD.</text><text x="42" y="95" font-family="Arial,sans-serif" font-size="12" letter-spacing="2" fill="#476044">GIVEN ANOTHER USE.</text>
+      </svg><div class="art-caption"><span>PADDY STRAW → PACKAGING</span><span>CONCEPT ILLUSTRATION</span></div>
+    </div>
+  </div>
+  <div class="strap"><div><span>01</span> Understand the harm</div><div><span>02</span> Give straw another use</div><div><span>03</span> Test a workable business</div></div>
+  <section id="problem" class="problem">
+    <div class="sectionhead"><div><div class="eyebrow">Why this matters here</div><h2>A quick field clearance.<br>A cost beyond the field.</h2></div><p>Stubble burning is a recurring issue in northern India, particularly in the paddy–wheat farming regions of Punjab and Haryana. A short gap between crops and the cost of handling straw make alternatives difficult to adopt.</p></div>
+    <div class="cards"><article class="card"><span class="number">01 / Air</span><h3>Smoke does not stay on the farm.</h3><p>Burning releases particulate pollution and gases into the air. Seasonal crop fires add to regional air pollution alongside traffic, industry, dust, and other sources.</p></article><article class="card"><span class="number">02 / Soil</span><h3>Nutrients leave with the smoke.</h3><p>Burning loses organic matter and nutrients that could otherwise support the soil. Keeping suitable residue on the land is also a valuable option.</p></article><article class="card"><span class="number">03 / Value</span><h3>A useful raw material is lost.</h3><p>Straw contains fibres that can be processed for paper and packaging. Burning ends that opportunity before a buyer can use the material.</p></article></div>
+    <div class="note"><p><strong>The solution has to work for farmers.</strong> A no-burning message is not enough. Timely pickup, nearby machinery, clear quality standards, and an agreed payment matter. This project proposes a use for <strong>surplus collectable straw</strong>; it does not assume every field should have all its residue removed.</p></div>
+  </section>
+</div>
+<section id="solution" class="solution"><div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">The ParaliPack idea</div><h2>From harvest leftovers<br>to something useful.</h2></div><p>Connect farmers and local collection groups with a qualified fibre-processing and packaging partner. Start with a small, tested non-food packaging product.</p></div>
+  <div class="steps"><article class="step"><span>STEP 01</span><h3>Collect & bale</h3><p>Agree on suitable surplus straw, arrange pickup after harvest, and keep bales dry and free from dirt.</p></article><article class="step"><span>STEP 02</span><h3>Prepare the fibre</h3><p>A processing partner cleans and prepares the straw, then uses a suitable pulping process. Rice straw’s silica content needs process-specific handling.</p></article><article class="step"><span>STEP 03</span><h3>Shape the packaging</h3><p>Form pulp into protective inserts, or make board and convert it into boxes. Other fibres or additives may be needed for strength.</p></article><article class="step"><span>STEP 04</span><h3>Test & sell</h3><p>Dry, trim, and test the product for its intended load and use. Sell only after buyers approve samples, performance, and price.</p></article></div>
+</div></section>
+<div class="wrap">
+<section class="products" id="products"><div class="sectionhead"><div><div class="eyebrow">What could we make?</div><h2>Start with packaging<br>people already need.</h2></div><p>These are product concepts to prototype with a manufacturing partner. They are not finished or certified ParaliPack products.</p></div>
+<div class="cards">
+<article class="card"><div class="product-visual"><svg viewBox="0 0 190 140" role="img" aria-label="Illustrated fibreboard shipping box"><path d="M30 48l74-26 61 38-73 30Z" fill="#d8b780"/><path d="M30 48v48l62 34V90Z" fill="#b88c53"/><path d="M92 90l73-30v45l-73 25Z" fill="#c79e68"/><path d="M64 36l64 40v22l13-5V70L77 31Z" fill="#eed7a5"/></svg></div><span class="tag">Concept 01 · Board route</span><h3>Shipping & gift boxes</h3><p>Straw-fibre board, potentially blended with other fibres, for small retail packs and gift boxes. Confirm strength, moisture resistance, and actual straw content.</p></article>
+<article class="card"><div class="product-visual"><svg viewBox="0 0 190 140" role="img" aria-label="Illustrated moulded protective insert"><path d="M20 55l107-27 48 38-109 39Z" fill="#c8b88e"/><path d="M20 55v27l46 32 109-34V66L66 105Z" fill="#a89974"/><path d="M56 57l61-16 23 18-61 22Z" fill="#8f8567"/><path d="M70 58l45-10 14 10-45 15Z" fill="#e0d6b4"/></svg></div><span class="tag">Concept 02 · Moulded fibre</span><h3>Protective inserts</h3><p>Custom shapes to hold small products inside a box. Begin with one local buyer’s item and test fit, cushioning, and drop performance.</p></article>
+<article class="card"><div class="product-visual"><svg viewBox="0 0 190 140" role="img" aria-label="Illustrated mycelium corner protectors"><path d="M32 40l44-12 14 12-28 8v34l29 17-13 15-46-29Z" fill="#e1d6b7"/><path d="M32 40l14 10v39l32 25-46-29Z" fill="#b9ad8c"/><path d="M111 39l44 24v50l-15 8V76l-42-23Z" fill="#d6c9a7"/><path d="M140 76l15-13v50l-15 8Z" fill="#a99e80"/></svg></div><span class="tag">Concept 03 · Mycelium route</span><h3>Corner protectors</h3><p>Crop-residue cushioning inspired by ICAR-CIPHET’s biothermocol technology. Licensing, production conditions, and buyer testing need to be checked.</p></article>
+</div><p class="reference">Straw-based does not automatically mean plastic-free, food-safe, recyclable, or home-compostable. Those claims depend on the complete formulation, coatings, tests, and available disposal systems.</p></section>
+<section class="business" id="business"><div class="sectionhead"><div><div class="eyebrow">Make the chain worth participating in</div><h2>Who earns—and how?</h2></div><p>The opportunity comes from delivering a usable material and a product that buyers reorder. Each participant has different costs and risks.</p></div><div class="roles"><article class="role"><h3>The farmer</h3><p>Receives an agreed payment for acceptable straw. Any collection or handling costs the farmer pays must be deducted to find their net income.</p></article><article class="role"><h3>The collection group</h3><p>An FPO or local entrepreneur earns a collection or supply margin, covering baling, transport, storage, and seasonal losses.</p></article><article class="role"><h3>The packaging business</h3><p>Sells tested packaging to retailers or manufacturers. Profit depends on yield, rejection rates, production cost, and confirmed orders.</p></article></div><div class="note"><strong>A practical starting point:</strong> arrange a small trial with an existing processor and one packaging buyer before considering a factory. Government supply-chain programmes have used agreements between aggregators and straw-using industries.</div></section>
+</div>
+<section id="calculator" class="calculator"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">Try it yourself</div><h2>How much could<br>your boxes sell for?</h2></div><p>Imagine turning collected straw into boxes. Change the three numbers below and see how the idea adds up.</p></div>
+<noscript>Enable JavaScript to try the calculator.</noscript>
+<div class="calcgrid"><div><form id="cost-form"><div class="inputs" style="grid-template-columns:1fr">
+<label>How much straw do you have? (kg)<input id="straw" type="number" value="100" min="1" max="1000000" step="1" required></label>
+<label>How many boxes can you make from 1 kg?<input id="boxes" type="number" value="3" min="1" max="1000" step="1" required></label>
+<label>What is the selling price of one box? (₹)<input id="price" type="number" value="12" min="0" max="100000" step="0.01" required></label>
+</div><p class="field-note">For this classroom example, we start with 3 boxes per kg. The real number depends on the box size and how it is made.</p><p class="error" id="error" role="status"></p><button class="smallbutton" type="reset">Start again</button></form></div>
+<div class="result" id="result" aria-live="polite" aria-atomic="true"><div class="eyebrow">Possible sales value</div><div class="profit" id="revenue">₹3,600</div><p id="story">100 kg of straw → 300 boxes</p><dl><div><dt>Boxes you could make</dt><dd id="units">300</dd></div><div><dt>Price of each box</dt><dd id="unit-price">₹12</dd></div></dl><p><strong>Sales are not the same as profit.</strong> Subtract the money spent on buying straw, transport, and making the boxes to find what is left.</p></div></div>
+<div class="note"><p><strong>The maths is simple:</strong> Straw × boxes per kg = total boxes. Total boxes × selling price = sales value. This example assumes all the boxes are sold; the starting numbers are for learning, not actual production or market figures.</p></div>
+</div></section>
+<div class="wrap">
+<section class="pilot" id="pilot"><div><div class="eyebrow">From a website to a real experiment</div><h2>Start small.<br>Find out what works.</h2><p>For a school or college project, the next step is a supervised feasibility study with local farmers and a technical partner.</p><p class="progress" id="progress" aria-live="polite">0 of 4 planning steps checked</p><p class="field-note">Checklist ticks last only until you reload this page.</p></div><div class="checklist">
+<label class="check"><input type="checkbox"><span><strong>Speak to a farmer or FPO.</strong>Ask about harvest timing, available surplus, collection access, and expected payment.</span></label>
+<label class="check"><input type="checkbox"><span><strong>Contact a qualified processor.</strong>Ask what straw quality they accept, whether they can run a trial, and how they handle water and waste.</span></label>
+<label class="check"><input type="checkbox"><span><strong>Choose one buyer and one product.</strong>Get dimensions, required strength, likely order size, and a target price.</span></label>
+<label class="check"><input type="checkbox"><span><strong>Test samples and record the real costs.</strong>Measure yield, drying energy, rejects, and product performance before claiming a profit.</span></label>
+</div></section>
+<section style="padding-top:0"><div class="eyebrow">Questions worth asking</div><h2>Before calling it a solution.</h2>
+<details><summary>Is packaging the best use for all stubble?</summary><p>No single use fits every location. In-field residue management, composting, energy, and other uses can also be appropriate. Packaging is this project’s chosen opportunity; local soil needs, transport distances, processing capacity, and demand decide whether it makes sense.</p></details>
+<details><summary>Can we just press raw straw into a strong shipping box?</summary><p>Not reliably. Fibre preparation, binding or pulping, drying, and product design determine performance. A commercial box may need blended fibres and coatings. The simple drawings on this page show product ideas, not proven manufacturing specifications.</p></details>
+<details><summary>Does this automatically reduce environmental impact?</summary><p>Preventing an open burn avoids that burning event, but packaging production also uses energy, water, and transport. Compare the full process and end-of-life route before claiming a carbon saving. This project does not claim measured emissions reductions.</p></details>
+<details><summary>Could these be used as food boxes?</summary><p>That would require appropriate food-contact testing and compliance for the full material, including any coating, ink, or adhesive. Our suggested first pilot is non-food packaging.</p></details>
+</section>
+<section class="guidance" aria-labelledby="guidance-title"><div class="eyebrow" id="guidance-title">Guidance by</div><div class="guidance-grid"><div><strong>Upasana Handa</strong><p>Director, Prime Educomp</p></div><div><strong>Danish Handa</strong><p>Director, Prime Educomp</p></div><div><strong>Raghu Mehra</strong><p>Director, GradMento</p></div></div></section>
+</div>
+</main>
+<footer><div class="wrap foot"><a href="#main" class="brand">Parali<span>Pack</span></a><p>A student exploration of stubble, packaging, and rural enterprise.</p></div></footer>
+<script>
+  'use strict';
+  const form = document.getElementById('cost-form');
+  const money = new Intl.NumberFormat('en-IN', {
+    style: 'currency', currency: 'INR', maximumFractionDigits: 2
+  });
+  const number = new Intl.NumberFormat('en-IN');
+
+  function calculateSales(straw, boxesPerKg, price) {
+    const boxes = straw * boxesPerKg;
+    return { boxes, sales: boxes * price };
+  }
+
+  function updateCalculator() {
+    const valid = form.checkValidity();
+    document.getElementById('error').textContent = valid ? '' : 'Please fill in all three boxes with numbers in the allowed range.';
+    document.getElementById('result').hidden = !valid;
+    if (!valid) return;
+
+    const straw = Number(document.getElementById('straw').value);
+    const boxesPerKg = Number(document.getElementById('boxes').value);
+    const price = Number(document.getElementById('price').value);
+    const result = calculateSales(straw, boxesPerKg, price);
+    document.getElementById('revenue').textContent = money.format(result.sales);
+    document.getElementById('units').textContent = number.format(result.boxes);
+    document.getElementById('unit-price').textContent = money.format(price);
+    document.getElementById('story').textContent = number.format(straw) + ' kg of straw → ' + number.format(result.boxes) + ' boxes';
+  }
+
+  form.addEventListener('input', updateCalculator);
+  form.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('reset', () => setTimeout(updateCalculator, 0));
+  updateCalculator();
+
+  const checks = document.querySelectorAll('.checklist input');
+  checks.forEach(check => check.addEventListener('change', () => {
+    const completed = Array.from(checks).filter(item => item.checked).length;
+    document.getElementById('progress').textContent = completed + ' of 4 planning steps checked';
+  }));
+</script>
+</body>
+</html>
